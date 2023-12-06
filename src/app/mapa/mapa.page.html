@@ -1,17 +1,23 @@
 <!-- mapa.page.html -->
 
-<ion-content>
+<ion-content color="danger">
   <div class="map-wrapper">
     <div #mapdiv class="map-container">
       <!-- Contenido del mapa aquí -->
     </div>
   </div>
   <div class="map-title">
-    Ventas
+    <h1>ventas</h1>
+    <hr class="line-divider">
+    <h3>KG entregados</h3>
     <ion-input placeholder="Ingrese kg" [(ngModel)]="kgValue"></ion-input>
+    <hr class="line-divider">
+    <h3>VL entregados</h3>
     <ion-input placeholder="Ingrese volumen" [(ngModel)]="volumenValue"></ion-input>
-    <ion-button (click)="agregarVenta()">Agregar</ion-button>
+    <hr class="line-divider">
+    <ion-button color="warning" (click)="agregarVenta()">Agregar</ion-button>
   </div>
+  <br>
   <div class="tabla-container">
    
       <ion-row>

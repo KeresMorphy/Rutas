@@ -1,9 +1,13 @@
 /* mapa.page.scss o tu archivo de estilos correspondiente */
 
+ion-content {
+  background-color: #555454; /* Cambia este color al que desees */
+}
+
 .map-wrapper {
   height: 30%;
-  border: 5px solid #ccc; /* Ajusta el grosor y color del borde según tus necesidades */
-  overflow: hidden; /* Esto evita que el mapa sobresalga del div con bordes */
+  border: 5px solid #ccc;
+  overflow: hidden;
   border-radius: 5px;
 }
 
@@ -20,13 +24,19 @@
 
 .map-title {
   text-align: center;
-  padding: 10px; /* Ajusta el espacio alrededor del título según tus necesidades */
-  font-size: 20px; /* Ajusta el tamaño del texto según tus necesidades */
-  font-weight: bold; /* Opcional: ajusta el peso del texto según tus necesidades */
-  margin-top: 10px; /* Ajusta la separación entre el mapa y el título según tus necesidades */
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 ion-input {
   width: 100%;
-  margin-top: 10px; /* Ajusta la separación entre los inputs y el título según tus necesidades */
+  margin-top: 10px;
+}
+
+.line-divider {
+  border: none;
+  border-top: 1px solid #555454; /* Ajusta el color de la línea según tus necesidades */
+  margin: 5px 0; /* Ajusta el margen de la línea según tus necesidades */
 }

@@ -1,18 +1,35 @@
+<ion-header>
+</ion-header>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata&family=Roboto&display=swap" rel="stylesheet">
+
 <ion-content class="ion-padding ion-text-center" color="danger">
+    <img src="https://bonnacarne.com/wp-content/uploads/2020/03/Bonnacarne-logoB_1.png" class="logo" />
 
-  <img src="https://bonnacarne.com/wp-content/uploads/2020/03/Bonnacarne-logoB_1.png" class="logo" />
+    <h2>Bienvenido</h2>
 
-  <div class="title">
-      <h2>Bienvenido</h2>
-      <p>Ingresa número de empleado</p>
-      <ion-input placeholder="Ingresa número de empleado"></ion-input>
-      <p>Contraseña</p>
-      <ion-input class="input-contra" placeholder="Contraseña"></ion-input>
-
-            <ion-button expand="block" class="ion-margin-top" color="white" routerLink="/lista">LOGIN</ion-button>
-
-  </div>
-
-
-
+    <!-- Bind the formGroup directive to your form -->
+    <form [formGroup]="form" (ngSubmit)="login()">
+        <div class="title">
+            <p>Ingresa número de empleado:</p>
+            <!-- Bind the form control to the input -->
+            <ion-input formControlName="employee_number" placeholder="Ingresa número de empleado"></ion-input>
+            <br>
+            <p>Ingresa contraseña:</p>
+            <!-- Bind the form control to the input -->
+            <ion-input formControlName="password" class="input-contra" placeholder="Contraseña"></ion-input>
+            <br>
+            <!-- Add the type="submit" attribute to trigger the form submission -->
+            <ion-button [disabled]="!form.valid" type="submit" expand="block" color="white" style="--box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); --border-radius: 10px;">LOGIN</ion-button>
+        </div>
+    </form>
 </ion-content>
+
+<style>
+    ion-input {
+        --placeholder-color: #000000; /* Change the placeholder color according to your preferences */
+        --ion-color-custom: #ffcc00;
+    }
+</style>

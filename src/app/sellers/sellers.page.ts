@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AlertController, ModalController } from '@ionic/angular';
+import { SellersService } from '../services/sellers.service';
 
 @Component({
-  selector: 'app-lista',
-  templateUrl: './lista.page.html',
-  styleUrls: ['./lista.page.scss'],
+  selector: 'app-sellers',
+  templateUrl: './sellers.page.html',
+  styleUrls: ['./sellers.page.scss'],
 })
-export class ListaPage implements OnInit {
+export class SellersPage implements OnInit {
   userInfo: any;
   employee_number: string | undefined;
   name: string | undefined;
@@ -26,17 +27,12 @@ export class ListaPage implements OnInit {
   userData: any;
   email: string | undefined;
   form: FormGroup | undefined;
-  clientes = [
-    { nombre: 'martin lopez', detalles: 'una entrega de 20 kg de cecina' },
-    { nombre: 'moises rodriguez', detalles: 'una entrega de 30 kg de buche' },
-    { nombre: 'maria elena', detalles: 'una entrega de 5 kg de chicharron' },
-    { nombre: 'maria elena', detalles: 'una entrega de 5 kg de chicharron' },
-  ];
-
+  vendedores: any[] = [];
+  totalVendedores: number = 0;
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
-
+    private sellersService: SellersService,
     private modalCtrl: ModalController,
     private alertController: AlertController
   ) {
@@ -51,10 +47,19 @@ export class ListaPage implements OnInit {
    
   }
 
-  ionViewDidEnter() {
-    this.employee_number = localStorage.getItem('employee_number') || undefined;
+  
+  loadSellers() {
+    this.sellersService.getAllSellers().subscribe(
+      (data) => {
+        this.vendedores = data;
+        console.log(this.vendedores);
+        this.totalVendedores = this.vendedores.length;
+      },
+      (error) => {
+        console.error('Error al cargar vendedores', error);
+      }
+    );
   }
-
   getLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -84,7 +89,7 @@ export class ListaPage implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.loadSellers();
   }
   
   // Aquí puedes agregar las funciones adicionales que necesitas

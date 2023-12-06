@@ -8,17 +8,17 @@
     <img src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-bot-n-de-perfil-de-instagram.png" alt="Foto de perfil" class="logo">
     <h1>Bienvenido {{name2}} </h1>
     <br>
-    <h3>Entregas del día: 3 </h3>
+    <h3>Total de vendedores: {{ totalVendedores }}</h3>
   </div>
 <br>
   <ion-list>
-    <ion-item *ngFor="let cliente of clientes" color="light" class="lista-item">
+    <ion-item *ngFor="let vendedor of vendedores" color="light" class="lista-item">
       <ion-avatar slot="start">
         <img src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-bot-n-de-perfil-de-instagram.png" class="logo-clientes">
       </ion-avatar>
       <ion-label>
-        <h2>{{cliente.nombre}}</h2>
-        <p>{{cliente.detalles}}</p>
+        <h2>{{vendedor.Nombre}}</h2>
+        <p>{{vendedor.NoEmpleado}}</p>
       </ion-label>
       <ion-button slot="end" fill="clear" (click)="irAMapa()">
         <ion-icon name="arrow-forward"></ion-icon>
