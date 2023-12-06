@@ -1,0 +1,25 @@
+ 
+
+.logo {
+    width: 80%;
+    margin: 20% 0 20% 0;
+}
+
+.title {
+    margin-bottom: 150px;
+}
+
+ion-input {
+    border-radius: 10px; 
+    border: 1.5px solid #ccc;
+    padding: 5px;
+    background-color: #ffffff;
+}
+
+p {
+    font-size: 17px; /* Ajusta el tamaño del texto según tus preferencias */
+}
+
+.ion-input::placeholder {
+    color: #ad0000; /* Cambia el color del placeholder según tus preferencias */
+}

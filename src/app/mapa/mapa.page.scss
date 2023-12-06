@@ -1,0 +1,32 @@
+/* mapa.page.scss o tu archivo de estilos correspondiente */
+
+.map-wrapper {
+  height: 30%;
+  border: 5px solid #ccc; /* Ajusta el grosor y color del borde según tus necesidades */
+  overflow: hidden; /* Esto evita que el mapa sobresalga del div con bordes */
+  border-radius: 5px;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#mapdiv {
+  width: 100%;
+  height: 100%;
+}
+
+.map-title {
+  text-align: center;
+  padding: 10px; /* Ajusta el espacio alrededor del título según tus necesidades */
+  font-size: 20px; /* Ajusta el tamaño del texto según tus necesidades */
+  font-weight: bold; /* Opcional: ajusta el peso del texto según tus necesidades */
+  margin-top: 10px; /* Ajusta la separación entre el mapa y el título según tus necesidades */
+}
+
+ion-input {
+  width: 100%;
+  margin-top: 10px; /* Ajusta la separación entre los inputs y el título según tus necesidades */
+}

@@ -1,0 +1,54 @@
+
+<ion-content color="danger">
+  <div class="user-info">
+    <!-- Foto de perfil de ejemplo -->
+    <img src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-bot-n-de-perfil-de-instagram.png" alt="Foto de perfil" class="logo">
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let cliente of clientes" color="light" class="lista-item">
+      <ion-avatar slot="start">
+        <img src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-bot-n-de-perfil-de-instagram.png" class="logo-clientes">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{cliente.nombre}}</h2>
+        <p>{{cliente.detalles}}</p>
+      </ion-label>
+      <ion-button slot="end" fill="clear" (click)="irAMapa()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<style>
+  ion-list {
+    background-color: var(--ion-color-danger); /* Usa la variable de color danger de Ionic */
+
+    ion-item {
+      ion-avatar {
+        width: 40px; /* Ajusta el tamaño según tus necesidades */
+        height: 40px;
+        img {
+          border-radius: 50%; /* Para obtener una imagen circular */
+        }
+      }
+
+      ion-label {
+        h2 {
+          font-size: 1.2em;
+        }
+
+        p {
+          color: #888;
+          font-size: 0.9em;
+        }
+      }
+
+      ion-button {
+        margin-left: auto; /* Mueve el botón hacia la derecha */
+      }
+    }
+  }
+</style>
