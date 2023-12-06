@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'mapa',
     loadChildren: () => import('./mapa/mapa.module').then( m => m.MapaPageModule)
+  },
+  {
+    path: 'create-users',
+    loadChildren: () => import('./create-users/create-users.module').then( m => m.CreateUsersPageModule)
   }
 ];
 @NgModule({

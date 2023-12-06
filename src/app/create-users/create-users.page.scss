@@ -1,0 +1,40 @@
+/* styles.css */
+
+ion-item.custom-item {
+    --background: var(--ion-color-danger); /* Establece el color de fondo como "danger" */
+    --border-width: 0; /* Elimina el borde del ion-item */
+}
+  
+
+  
+/* styles.css */
+
+ion-button {
+    border-radius: 10px; /* Ajusta el valor según el redondeo deseado */
+    display: flex;
+    align-items: center;
+    border-radius: 8px; /* Agrega esquinas redondeadas */
+}
+  
+/* styles.css */
+/* styles.css */
+
+/* styles.css */
+
+ion-input.custom-input {
+    border: 1px solid #eae8e8; /* Agrega un borde alrededor de los inputs */
+    border-radius: 8px; /* Agrega esquinas redondeadas */
+    padding: 8px; /* Ajusta el relleno según tus preferencias */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Agrega una sombra sutil */
+    background-color: #ffffff; /* Fondo de color rojo oscuro */
+    color: white; /* Color del texto en los input */
+}
+ 
+  /* styles.css */
+
+  ion-label.custom-label {
+    color: white !important; /* !important se utiliza para asegurar que este estilo tenga prioridad */
+    text-align: center;
+}
+
+  
