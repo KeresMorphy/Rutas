@@ -1,7 +1,7 @@
 // sellers-clients.page.ts
 import { Component, OnInit } from '@angular/core';
 import { SellersService } from '../services/sellers.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sellers-clients',
@@ -11,34 +11,29 @@ import { ActivatedRoute } from '@angular/router';
 export class SellersClientsPage implements OnInit {
   sellers: any[""]; // arreglo que contendrá los vendedores
   selectedSeller: any; // vendedor seleccionado
-  clients: any[""]; // arreglo que contendrá los clientes asociados al vendedor seleccionado
+  clients!: any[]; // arreglo que contendrá los clientes asociados al vendedor seleccionado
+  seller: any;
+  constructor(private sellersService: SellersService, private route: ActivatedRoute, private router: Router) {}
 
-  constructor(private sellersService: SellersService, private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.loadSellers();
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const codAgen = params['codAgen']; // Obtén el valor de codAgen de los parámetros de la ruta
+      this.loadClients(codAgen);
+    });
   }
 
-  private loadSellers() {
-    this.sellersService.getAllSellers().subscribe(
-      (data) => {
-        this.sellers = data; // asigna los datos del servicio al arreglo de vendedores
-      },
-      (error) => {
-        console.error('Error al obtener vendedores', error);
-      }
-    );
-  }
+ 
 
-  onSelectSeller(seller: any) {
-    this.selectedSeller = seller;
-    this.loadClients(seller.CodAgen);
+  irAMapa() {
+    this.router.navigate(['/mapa']);
   }
 
   private loadClients(codAgen: string) {
     this.sellersService.getClientsBySeller(codAgen).subscribe(
       (data) => {
-        this.clients = data.clients; // asigna los clientes asociados al vendedor seleccionado
+        this.clients = data.clients; // Asigna los clientes asociados al vendedor seleccionado
+        this.seller = data.seller;
+        console.log(this.clients);
       },
       (error) => {
         console.error('Error al obtener clientes', error);

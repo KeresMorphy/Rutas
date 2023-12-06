@@ -23,14 +23,15 @@ const routes: Routes = [
   {
     path: 'create-users',
     loadChildren: () => import('./create-users/create-users.module').then( m => m.CreateUsersPageModule)
-  },  {
+  },
+  {
     path: 'sellers',
     loadChildren: () => import('./sellers/sellers.module').then( m => m.SellersPageModule)
   },
   {
-    path: 'sellers-clients',
-    loadChildren: () => import('./sellers-clients/sellers-clients.module').then( m => m.SellersClientsPageModule)
-  },
+    path: 'sellers-clients/:codAgen', 
+    loadChildren: () => import('./sellers-clients/sellers-clients.module').then(m => m.SellersClientsPageModule)
+  }
 
   
 

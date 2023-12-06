@@ -29,6 +29,7 @@ export class SellersPage implements OnInit {
   form: FormGroup | undefined;
   vendedores: any[] = [];
   totalVendedores: number = 0;
+  
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
@@ -84,8 +85,8 @@ export class SellersPage implements OnInit {
     });
   }
 
-  irAMapa() {
-    this.router.navigate(['/mapa']);
+  irAMapa(codAgen: string) {
+    this.router.navigate(['/sellers-clients', codAgen]);
   }
 
   ngOnInit() {

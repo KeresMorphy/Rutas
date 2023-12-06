@@ -20,7 +20,7 @@
         <h2>{{vendedor.Nombre}}</h2>
         <p>{{vendedor.NoEmpleado}}</p>
       </ion-label>
-      <ion-button slot="end" fill="clear" (click)="irAMapa()">
+      <ion-button slot="end" fill="clear" (click)="irAMapa(vendedor.CodAgen)">
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-button>
     </ion-item>
