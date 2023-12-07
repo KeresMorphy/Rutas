@@ -1,0 +1,50 @@
+<!-- client-details-modal.page.html -->
+<ion-content>
+
+  
+  <ion-button (click)="closeModal()">
+    <ion-icon name="close" ></ion-icon>
+  </ion-button>
+    <div class="user-info" >
+      <img src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-bot-n-de-perfil-de-instagram.png" alt="Foto de perfil" class="logo">
+      <h2>{{ client.RazonSocial }}</h2>
+      <p>Dirección: {{ client.Domicilio }}, {{ client.NoExterior }}</p>
+      <p>Colonia: {{ client.Colonia }}, Población: {{ client.Poblacion }}, Estado: {{ client.Estado }}</p>
+      <p>Teléfono: {{ client.Telefono }}, Código Postal: {{ client.CodPostal }}</p>
+      
+    </div>
+    <br>
+    <ion-row justify-content-center>
+      <ion-col size="auto">
+        <ion-button [color]="isSelected('Lunes') ? 'danger' : 'light'" (click)="selectDay('Lunes')" shape="round" size="small">Lunes</ion-button>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button [color]="isSelected('Martes') ? 'danger' : 'light'" (click)="selectDay('Martes')" shape="round" size="small">Martes</ion-button>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button [color]="isSelected('Miércoles') ? 'danger' : 'light'" (click)="selectDay('Miércoles')" shape="round" size="small">Miércoles</ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row justify-content-center>
+      <ion-col size="auto">
+        <ion-button [color]="isSelected('Jueves') ? 'danger' : 'light'" (click)="selectDay('Jueves')" shape="round" size="small">Jueves</ion-button>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button [color]="isSelected('Viernes') ? 'danger' : 'light'" (click)="selectDay('Viernes')" shape="round" size="small">Viernes</ion-button>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button [color]="isSelected('Sábado') ? 'danger' : 'light'" (click)="selectDay('Sábado')" shape="round" size="small">Sábado</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center>
+      <ion-col size="auto">
+        <ion-button (click)="confirmAssignment()" size="large">Asignar</ion-button>
+      </ion-col>
+    </ion-row>
+    
+
+    
+    
+
+</ion-content>

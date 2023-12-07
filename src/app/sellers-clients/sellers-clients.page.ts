@@ -2,6 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SellersService } from '../services/sellers.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { SellerDetailModalComponent } from '../seller-detail-modal/seller-detail-modal.component';
 
 @Component({
   selector: 'app-sellers-clients',
@@ -13,7 +15,8 @@ export class SellersClientsPage implements OnInit {
   selectedSeller: any; // vendedor seleccionado
   clients!: any[]; // arreglo que contendrá los clientes asociados al vendedor seleccionado
   seller: any;
-  constructor(private sellersService: SellersService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private sellersService: SellersService, private route: ActivatedRoute, private router: Router, private modalController: ModalController) {}
+
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -22,12 +25,21 @@ export class SellersClientsPage implements OnInit {
     });
   }
 
- 
-
-  irAMapa() {
-    this.router.navigate(['/mapa']);
+  async openClientDetailsModal(client: any) {
+    const modal = await this.modalController.create({
+      component: SellerDetailModalComponent,
+      componentProps: {
+        client: client,
+      },
+    });
+  
+    return await modal.present();
   }
+  
 
+  irAMapa(client: any) {
+    this.openClientDetailsModal(client);
+  }
   private loadClients(codAgen: string) {
     this.sellersService.getClientsBySeller(codAgen).subscribe(
       (data) => {

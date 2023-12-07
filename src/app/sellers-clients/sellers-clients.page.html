@@ -24,7 +24,7 @@
   <p>Colonia: {{ client.Colonia }}, Población: {{ client.Poblacion }}, Estado: {{ client.Estado }}</p>
   <p>Teléfono: {{ client.Telefono }}, Código Postal: {{ client.CodPostal }}</p>
       </ion-label>
-      <ion-button slot="end" fill="clear" (click)="irAMapa()">
+      <ion-button slot="end" fill="clear" (click)="irAMapa(client)">
         <ion-icon name="arrow-forward"></ion-icon>
       </ion-button>
     </ion-item>
