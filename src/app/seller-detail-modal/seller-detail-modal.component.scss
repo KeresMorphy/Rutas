@@ -1,0 +1,93 @@
+:root {
+    --mi-color-fondo: #003366; /* Define un nuevo color de fondo */
+  }
+  
+  ion-content {
+    --background: var(--mi-color-fondo); /* Usa el nuevo color de fondo */
+  }
+.logo {
+    width: 50%;
+    margin: 20% 25%; /* Establece 20% en la parte superior e inferior y 'auto' en los lados para centrar horizontalmente */
+}
+
+.lista-item{
+    margin: 5% 6%;
+    border-radius: 200px;
+}
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--ion-color-danger); /* Usa la variable de color danger de Ionic */
+    padding: 20px; /* Ajusta el espacio interno según sea necesario */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para resaltar la caja */
+    margin: 25px; /* Ajusta el margen según sea necesario */
+  }
+  
+  .user-info img {
+    width: 100px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .user-info p {
+    margin: 0;
+    color: #fff; /* Color del texto oscuro */
+    font-size: 1.5em; /* Tamaño del texto más grande */
+    font-weight: bold; /* Negrita para resaltar el texto */
+    text-align: center; /* Centrar el texto */
+  }
+  
+
+  /* Estilos para ion-list */
+ion-list {
+    background-color: var(--ion-color-danger); /* Fondo oscuro para la lista */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px; /* Ajusta el espacio interno según sea necesario */
+    margin: 10px; /* Ajusta el margen superior e inferior según sea necesario */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para resaltar la caja */
+  }
+  
+  /* Estilos para ion-item */
+  ion-item {
+    background-color: #fff; /* Fondo blanco para los elementos individuales */
+    border-radius: 8px; /* Bordes redondeados */
+    margin-bottom: 10px; /* Espaciado entre elementos */
+  }
+  
+  /* Estilos para ion-avatar */
+  ion-avatar img {
+    border-radius: 50%; /* Asegura que la imagen del avatar sea circular */
+  }
+  
+  /* Estilos para ion-label */
+  ion-label {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px; /* Espaciado entre la imagen y el texto */
+  }
+  ion-content{
+    background-color: #ff6d80;
+  }
+  /* Estilos para h2 */
+  h2 {
+    font-size: 1.2em;
+    margin-bottom: 5px; /* Espaciado entre el título y el párrafo */
+  }
+  
+  /* Estilos para p */
+  p {
+    color: #888;
+    font-size: 0.9em;
+  }
+  ion-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  ion-col {
+    text-align: center;
+  }
+  
