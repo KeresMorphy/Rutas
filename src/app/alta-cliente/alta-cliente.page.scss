@@ -1,0 +1,87 @@
+:root {
+    --mi-color-fondo: #7d9dbd; /* Define un nuevo color de fondo */
+  }
+  
+  ion-content {
+    --background: var(--mi-color-fondo); /* Usa el nuevo color de fondo */
+  }
+  
+  .lista-item {
+    margin: 5% 6%;
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--ion-color-danger); /* Usa la variable de color danger de Ionic */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin: 25px;
+  }
+  
+  .user-info img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .user-info p {
+    margin: 0;
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Estilos para ion-list */
+  ion-list {
+    background-color: var(--ion-color-danger);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Estilos para ion-item */
+  ion-item {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para ion-avatar */
+  ion-avatar img {
+    border-radius: 50%;
+  }
+  
+  /* Estilos para ion-label */
+  ion-label {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    color: #000000;
+  }
+  
+  ion-content {
+    background-color: #ff6d80;
+  }
+  
+  /* Estilos para h2 */
+  h2 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+  }
+  
+  /* Estilos para p */
+  p {
+    color: #000000;
+    font-size: 0.9em;
+  }
+
+  ion-item ion-label {
+    color: #000000; /* Cambia el color de texto según tus preferencias */
+  }
+  

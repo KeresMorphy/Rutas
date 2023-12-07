@@ -31,7 +31,12 @@ const routes: Routes = [
   {
     path: 'sellers-clients/:codAgen', 
     loadChildren: () => import('./sellers-clients/sellers-clients.module').then(m => m.SellersClientsPageModule)
+  },
+  {
+    path: 'alta-cliente',
+    loadChildren: () => import('./alta-cliente/alta-cliente.module').then( m => m.AltaClientePageModule)
   }
+
 
   
 
