@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AlertController, ModalController } from '@ionic/angular';
+import { SellersService } from '../services/sellers.service';
 
 @Component({
   selector: 'app-lista',
@@ -26,17 +27,12 @@ export class ListaPage implements OnInit {
   userData: any;
   email: string | undefined;
   form: FormGroup | undefined;
-  clientes = [
-    { nombre: 'martin lopez', detalles: 'una entrega de 20 kg de cecina' },
-    { nombre: 'moises rodriguez', detalles: 'una entrega de 30 kg de buche' },
-    { nombre: 'maria elena', detalles: 'una entrega de 5 kg de chicharron' },
-    { nombre: 'maria elena', detalles: 'una entrega de 5 kg de chicharron' },
-  ];
+  clientes: Array<any> = [];
 
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
-
+    private sellersService: SellersService,
     private modalCtrl: ModalController,
     private alertController: AlertController
   ) {
@@ -46,6 +42,7 @@ export class ListaPage implements OnInit {
     console.log(this.userInfo);
     this.name2 = this.userInfo.name;
     console.log(this.name2);
+
     
     this.getLocation();
    
@@ -84,8 +81,22 @@ export class ListaPage implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.obtenerClientes();
   }
-  
+  obtenerClientes() {
+    const ruta = '322.0'; // Reemplaza esto con la ruta que necesitas obtener
+    this.sellersService.getClientesInfoByDay(ruta).subscribe(
+      (data) => {
+        // La respuesta de la API se encuentra en 'data'
+        console.log(data);
+        // Actualiza tu arreglo de clientes con los datos obtenidos
+        this.clientes = data.clientes || [];
+      },
+      (error) => {
+        console.error('Error al obtener datos de la API', error);
+        // Puedes manejar el error según tus necesidades
+      }
+    );
+  }
   // Aquí puedes agregar las funciones adicionales que necesitas
 }

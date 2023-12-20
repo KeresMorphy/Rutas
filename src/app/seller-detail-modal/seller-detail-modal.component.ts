@@ -1,6 +1,7 @@
-// seller-detail-modal.component.ts
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
+import { SellersService } from '../services/sellers.service';  // Asegúrate de ajustar la ruta correcta
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-seller-detail-modal',
@@ -9,9 +10,13 @@ import { AlertController, ModalController } from '@ionic/angular';
 })
 export class SellerDetailModalComponent implements OnInit {
   @Input() client: any;
-  selectedDay: string = '';
+  selectedDays: string[] = [];
 
-  constructor(private modalController: ModalController, private alertController: AlertController) {}
+  constructor(
+    private modalController: ModalController,
+    private alertController: AlertController,
+    private sellersService: SellersService // Inyecta el servicio SellersService
+  ) {}
 
   ngOnInit() {}
 
@@ -20,19 +25,20 @@ export class SellerDetailModalComponent implements OnInit {
   }
 
   selectDay(day: string) {
-    if (this.selectedDay === day) {
-      // Si el día ya está seleccionado, deselecciónalo
-      this.selectedDay = '';
+    const index = this.selectedDays.indexOf(day);
+
+    if (index !== -1) {
+      this.selectedDays.splice(index, 1);
     } else {
-      // Si se selecciona un nuevo día, deselecciona el día anterior y selecciona el nuevo
-      this.selectedDay = day;
+      this.selectedDays.push(day);
     }
   }
+
   async confirmAssignment() {
-    if (this.selectedDay) {
+    if (this.selectedDays.length > 0) {
       const alert = await this.alertController.create({
         header: 'Confirmación',
-        message: `¿Estás seguro que quieres asignar al día ${this.selectedDay}?`,
+        message: `¿Estás seguro que quieres asignar a los días ${this.selectedDays.join(', ')}?`,
         buttons: [
           {
             text: 'Cancelar',
@@ -44,8 +50,7 @@ export class SellerDetailModalComponent implements OnInit {
           {
             text: 'Aceptar',
             handler: () => {
-              this.closeModal();
-              console.log(`Asignado al día ${this.selectedDay}`);
+              this.createClienteInfo(); // Llama a la función para enviar los datos al backend
             },
           },
         ],
@@ -53,10 +58,45 @@ export class SellerDetailModalComponent implements OnInit {
 
       await alert.present();
     } else {
-      console.log('Por favor, selecciona un día antes de asignar.');
+      console.log('Por favor, selecciona al menos un día antes de asignar.');
     }
   }
+
   isSelected(day: string): boolean {
-    return this.selectedDay === day;
+    return this.selectedDays.includes(day);
+  }
+
+  createClienteInfo() {
+    const postData = {
+      CodCliente: this.client.CodCliente,
+    CodPostal: this.client.CodPostal,
+    Colonia: this.client.Colonia,
+    Domicilio: this.client.Domicilio,
+    Email: this.client.Email,
+    Estado: this.client.Estado,
+    NoExterior: this.client.NoExterior,
+    Poblacion: this.client.Poblacion,
+    RazonSocial: this.client.RazonSocial,
+    Ruta: this.client.Ruta,
+    Telefono: this.client.Telefono,
+      FechaAsignacion: new Date().toISOString().split('T')[0],
+      Lunes: this.isSelected('Lunes'),
+      Martes: this.isSelected('Martes'),
+      Miercoles: this.isSelected('Miércoles'),
+      Jueves: this.isSelected('Jueves'),
+      Viernes: this.isSelected('Viernes'),
+      Sabado: this.isSelected('Sábado'),
+      Visitado: false, // No estoy seguro de dónde obtener este valor
+    };
+
+    // Utiliza el servicio para realizar la solicitud POST al backend Laravel
+    this.sellersService.createClienteInfo(postData).subscribe(
+      (response) => {
+        console.log('Cliente creado exitosamente', response);
+      },
+      (error) => {
+        console.error('Error al crear cliente', error);
+      }
+    );
   }
 }
