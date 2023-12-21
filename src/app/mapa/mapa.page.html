@@ -7,15 +7,11 @@
     </div>
   </div>
   <div class="map-title">
-    <h1>ventas</h1>
+    <h1>Información del Cliente</h1>
     <hr class="line-divider">
-    <h3>KG entregados</h3>
-    <ion-input placeholder="Ingrese kg" [(ngModel)]="kgValue"></ion-input>
-    <hr class="line-divider">
-    <h3>VL entregados</h3>
-    <ion-input placeholder="Ingrese volumen" [(ngModel)]="volumenValue"></ion-input>
-    <hr class="line-divider">
-    <ion-button color="warning" (click)="agregarVenta()">Agregar</ion-button>
+    <h3>Nombre: {{ cliente.RazonSocial }}</h3>
+    <h3>Dirección: {{ cliente.Domicilio }}</h3>
+    <!-- Otras propiedades del cliente que desees mostrar -->
   </div>
   <br>
   <div class="tabla-container">

@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import mapboxgl from 'mapbox-gl';
 
 @Component({
@@ -20,14 +21,28 @@ export class MapaPage implements AfterViewInit {
   kgValue: number;
   volumenValue: number;
   ventas: { kg: number; volumen: number }[] = [];
+  cliente: any; // Asegúrate de que la variable cliente esté declarada
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
     this.kgValue = 0;
     this.volumenValue = 0;
   }
 
+  ngOnInit(): void {
+    // Recuperar el cliente del estado de la página
+    this.cliente = history.state.cliente;
+
+    // Si deseas mantener la compatibilidad con la URL, puedes usar queryParams también
+    // this.route.queryParams.subscribe((params: { [key: string]: any }) => {
+    //   if (params && params['cliente']) {
+    //     this.cliente = JSON.parse(params['cliente']);
+    //     // Aquí puedes realizar acciones adicionales con la información del cliente
+    //   }
+    // });
+  }
+
   ngAfterViewInit(): void {
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZWRkeS1jYXN0bGUiLCJhIjoiY2xwMGIwcGc2MDd0NTJrbWR6d3A0N2R1biJ9.N2PAEfekpGWuCosvT47gcQ'; // Reemplaza 'TU_ACCESS_TOKEN' con tu propio token de Mapbox
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZWRkeS1jYXN0bGUiLCJhIjoiY2xwMGIwcGc2MDd0NTJrbWR6d3A0N2R1biJ9.N2PAEfekpGWuCosvT47gcQ';
 
     const map = new mapboxgl.Map({
       container: this.mapdivElement.nativeElement,

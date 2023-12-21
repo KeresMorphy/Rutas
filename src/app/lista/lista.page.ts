@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { NavParams } from '@ionic/angular';
 import { AlertController, ModalController } from '@ionic/angular';
 import { SellersService } from '../services/sellers.service';
 
@@ -43,9 +43,7 @@ export class ListaPage implements OnInit {
     this.name2 = this.userInfo.name;
     console.log(this.name2);
 
-    
     this.getLocation();
-   
   }
 
   ionViewDidEnter() {
@@ -63,8 +61,6 @@ export class ListaPage implements OnInit {
     }
   }
 
-
-
   formInit() {
     this.form = this.formBuilder.group({
       employee_number: ['', [Validators.required, Validators.minLength(1)]],
@@ -76,13 +72,17 @@ export class ListaPage implements OnInit {
     });
   }
 
-  irAMapa() {
-    this.router.navigate(['/mapa']);
+  irAMapa(cliente: any) {
+    // Utiliza NavParams para pasar datos a la página del mapa
+    this.router.navigate(['/mapa'], {
+      state: { cliente: cliente }
+    });
   }
 
   ngOnInit() {
     this.obtenerClientes();
   }
+
   obtenerClientes() {
     const ruta = '322.0'; // Reemplaza esto con la ruta que necesitas obtener
     this.sellersService.getClientesInfoByDay(ruta).subscribe(
