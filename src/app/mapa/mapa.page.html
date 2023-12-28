@@ -9,22 +9,60 @@
   <div class="map-title">
     <h1>Información del Cliente</h1>
     <hr class="line-divider">
-    <h3>Nombre: {{ cliente.RazonSocial }}</h3>
-    <h3>Dirección: {{ cliente.Domicilio }}</h3>
-    <!-- Otras propiedades del cliente que desees mostrar -->
+     <h3>Nombre: {{ cliente.RazonSocial }}</h3>
+    <h3>Dirección: {{ cliente.Estado }}   {{ cliente.Poblacion }} {{ cliente.Colonia }} <br> {{ cliente.Domicilio }}</h3>
+   
   </div>
   <br>
+  <ion-item color="danger">
+    <ion-label position="floating" >Código</ion-label>
+    <ion-input 
+      name="codigo" 
+      [(ngModel)]="scannedData.Descripcion" 
+      type="text" 
+      required
+      (ionInput)="onSearchChange($event)"
+      autocomplete="on"  
+      
+    ></ion-input>
+  </ion-item>
+  <ion-item color="danger">
+    <ion-label position="floating">Kilogramos</ion-label>
+    <ion-input
+      name="kilogramos"
+      [(ngModel)]="nuevosKilogramos"
+      type="number"
+      required
+    ></ion-input>
+  </ion-item>
+
+  <ion-list *ngIf="filteredProducts.length > 0">
+    <ion-item *ngFor="let item of filteredProducts" (click)="selectProduct(item)">
+      {{ item.CodProd }} - {{ item.Descripcion }}
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" color="danger" (click)="agregarVenta()">Agregar</ion-button>
+
   <div class="tabla-container">
    
       <ion-row>
         <ion-col>ID</ion-col>
         <ion-col>Kg</ion-col>
-        <ion-col>Volumen</ion-col>
+        <ion-col>Precio</ion-col>
+        <ion-col>Precio total</ion-col>
+
       </ion-row>
       <ion-row *ngFor="let venta of ventas; let i = index">
-        <ion-col>{{ i + 1 }}</ion-col>
-        <ion-col>{{ venta.kg }}</ion-col>
-        <ion-col>{{ venta.volumen }}</ion-col>
+        <ion-col>{{ venta.id }}</ion-col>
+  <ion-col>{{ venta.kg }}</ion-col>
+  <ion-col>{{ venta.precio }}</ion-col>
+  <ion-col>{{ venta.precioTotal }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+        <ion-col>Total: {{ totalPrecioTotal }}</ion-col>
       </ion-row>
 
   </div>

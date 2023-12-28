@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NavParams } from '@ionic/angular';
+import { LoadingController, NavParams } from '@ionic/angular';
 import { AlertController, ModalController } from '@ionic/angular';
 import { SellersService } from '../services/sellers.service';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-lista',
@@ -28,11 +29,15 @@ export class ListaPage implements OnInit {
   email: string | undefined;
   form: FormGroup | undefined;
   clientes: Array<any> = [];
-
+product: any;
+  products: any[] = []; // Asegúrate de inicializar esta variable con tus productos
+  filteredProducts: any[] = [];
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
+    private productService: ProductService,
     private sellersService: SellersService,
+    private loadingController: LoadingController,
     private modalCtrl: ModalController,
     private alertController: AlertController
   ) {
@@ -80,8 +85,44 @@ export class ListaPage implements OnInit {
   }
 
   ngOnInit() {
-    this.obtenerClientes();
+    this.obtenerClientes(); // Llamada al servicio de clientes
+  
+    // Muestra el loader antes de llamar al servicio de productos
+    this.presentLoader();
+  
+    // Llama al servicio de productos y muestra el loader
+    this.productService.getAllProducts().subscribe(
+      (data) => {
+        // La respuesta de la API de productos se encuentra en 'data'
+       
+        // Actualiza tu arreglo de productos con los datos obtenidos
+        this.products = data || [];
+        console.log(this.products);
+        // Cierra el loader después de obtener los datos con éxito
+        this.dismissLoader();
+      },
+      (error) => {
+        console.error('Error al obtener datos de la API de productos', error);
+        // Puedes manejar el error según tus necesidades
+        // Cierra el loader en caso de error
+        this.dismissLoader();
+      }
+    );
   }
+  
+  private async presentLoader(): Promise<void> {
+    const loading = await this.loadingController.create({
+      message: 'Cargando Clientes...' // Mensaje que se mostrará en el loader
+    });
+    await loading.present();
+  }
+  
+  private async dismissLoader(): Promise<void> {
+    if (this.loadingController) {
+      await this.loadingController.dismiss();
+    }
+  }
+  
 
   obtenerClientes() {
     const ruta = '322.0'; // Reemplaza esto con la ruta que necesitas obtener
