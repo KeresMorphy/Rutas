@@ -1,4 +1,3 @@
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar color="danger">
@@ -7,85 +6,84 @@
   </ion-header>
 
   <ion-list class="lista-item">
-    <form>
+    <form (ngSubmit)="submitForm()">
+
       <ion-item color="white">
         <ion-label position="floating">CodCliente</ion-label>
-        <ion-input type="text" name="CodCliente" required></ion-input>
+        <ion-input type="text" name="CodCliente" required [(ngModel)]="formData.CodCliente"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">RazonSocial</ion-label>
-        <ion-input type="text" name="RazonSocial" required></ion-input>
+        <ion-input type="text" name="RazonSocial" required [(ngModel)]="formData.RazonSocial"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">Domicilio</ion-label>
-        <ion-input type="text" name="Domicilio" required></ion-input>
+        <ion-input type="text" name="Domicilio" required [(ngModel)]="formData.Domicilio"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">NoExterior</ion-label>
-        <ion-input type="text" name="NoExterior" required></ion-input>
+        <ion-input type="text" name="NoExterior" required [(ngModel)]="formData.NoExterior"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">Ruta</ion-label>
-        <ion-input type="text" name="Ruta" required></ion-input>
+        <ion-input type="text" name="Ruta" required [(ngModel)]="formData.Ruta"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">colonia</ion-label>
-        <ion-input type="text" name="colonia" required></ion-input>
+        <ion-input type="text" name="colonia" required [(ngModel)]="formData.colonia"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">Poblacion</ion-label>
-        <ion-input type="text" name="Poblacion" required></ion-input>
+        <ion-input type="text" name="Poblacion" required [(ngModel)]="formData.Poblacion"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">Estado</ion-label>
-        <ion-input type="text" name="Estado" required></ion-input>
+        <ion-input type="text" name="Estado" required [(ngModel)]="formData.Estado"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">Telefono</ion-label>
-        <ion-input type="text" name="Telefono" required></ion-input>
+        <ion-input type="text" name="Telefono" required [(ngModel)]="formData.Telefono"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">CodPostal</ion-label>
-        <ion-input type="text" name="CodPostal" required></ion-input>
+        <ion-input type="text" name="CodPostal" required [(ngModel)]="formData.CodPostal"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">RFC</ion-label>
-        <ion-input type="text" name="RFC" required></ion-input>
+        <ion-input type="text" name="RFC" required [(ngModel)]="formData.RFC"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" name="Email" required></ion-input>
+        <ion-input type="email" name="Email" required [(ngModel)]="formData.Email"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">FormaPago</ion-label>
-        <ion-input type="text" name="FormaPago" required></ion-input>
+        <ion-input type="text" name="FormaPago" required [(ngModel)]="formData.FormaPago"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">Uso CFDI</ion-label>
-        <ion-input type="text" name="UsoCFDI" required></ion-input>
+        <ion-input type="text" name="UsoCFDI" required [(ngModel)]="formData.UsoCFDI"></ion-input>
       </ion-item>
 
       <ion-item color="white">
         <ion-label position="floating">EnviadoTaz</ion-label>
-        <ion-input type="text" name="EnviadoTaz" required></ion-input>
+        <ion-input type="text" name="EnviadoTaz" required [(ngModel)]="formData.EnviadoTaz"></ion-input>
       </ion-item>
 
       <ion-button type="submit" expand="full">Guardar</ion-button>
     </form>
   </ion-list>
 </ion-content>
-
-
