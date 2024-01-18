@@ -25,4 +25,8 @@ export class SellersService {
     const url = `${this.apiUrl}/getClientesInfoByDay/${ruta}`;
     return this.http.get<any>(url);
   }
+  editarNoVisitado(idCliente: string, data: any): Observable<any> {
+    const url = `${this.apiUrl}/clientes/${idCliente}/editar-no-visitado`;
+    return this.http.put<any>(url, data);
+  }
 }

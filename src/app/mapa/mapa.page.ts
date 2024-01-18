@@ -1,9 +1,10 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import mapboxgl from 'mapbox-gl';
 import { ProductService } from '../services/product.service';
 import { HttpClient } from '@angular/common/http';
+import { SellersService } from '../services/sellers.service';
 
 @Component({
   selector: 'app-mapa',
@@ -34,8 +35,11 @@ export class MapaPage implements AfterViewInit {
   nuevosKilogramos: number | undefined;
   constructor(private route: ActivatedRoute,
     private loadingController: LoadingController, private productService: ProductService,
+    private sellersService: SellersService,
     private alertController: AlertController,
-    private httpClient: HttpClient 
+    private httpClient: HttpClient,
+    private router: Router,
+
 
   ) {
     this.kgValue = 0;
@@ -116,8 +120,6 @@ export class MapaPage implements AfterViewInit {
         const coordenadas = await this.obtenerCoordenadas(direccionCompleta);
 
         if (coordenadas.length === 2) {
-            // Todas las coordenadas han sido obtenidas con éxito
-            // Puedes usar las coordenadas como necesites, por ejemplo, actualizar el mapa
             this.actualizarMapa(coordenadas);
         } else {
             console.error('No se obtuvieron coordenadas para la dirección:', direccionCompleta);
@@ -126,7 +128,7 @@ export class MapaPage implements AfterViewInit {
 }
   
   private async obtenerCoordenadas(direccion: string): Promise<number[]> {
-    const token = 'pk.eyJ1IjoiZWRkeS1jYXN0bGUiLCJhIjoiY2xwMGIwcGc2MDd0NTJrbWR6d3A0N2R1biJ9.N2PAEfekpGWuCosvT47gcQ';  // Reemplaza con tu token
+    const token = 'pk.eyJ1IjoiZWRkeS1jYXN0bGUiLCJhIjoiY2xwMGIwcGc2MDd0NTJrbWR6d3A0N2R1biJ9.N2PAEfekpGWuCosvT47gcQ'; 
     const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(direccion)}.json?access_token=${token}`;
   
     try {
@@ -155,7 +157,57 @@ export class MapaPage implements AfterViewInit {
       zoom: 9,
     });
   }
+  async mostrarRazonesNoEntrega() {
+    const razones = [
+      'Dirección incorrecta',
+      'Cliente ausente',
+      'No hay acceso al edificio',
+      'Otra razón',
+    ];
 
+    const alert = await this.alertController.create({
+      header: 'Seleccione la razón',
+      inputs: razones.map((razon, index) => ({
+        name: `razon-${index}`,
+        type: 'radio',
+        label: razon,
+        value: razon,
+      })),
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Aceptar',
+          handler: (data) => {
+            // Enviar la razón seleccionada al servidor
+            this.enviarRazonNoEntrega(data);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+  async enviarRazonNoEntrega(razon: string) {
+    try {
+      // Obtiene el ID del cliente (asegúrate de tener acceso a la propiedad 'id')
+      const idCliente = this.cliente.id;
+
+      // Realiza la solicitud HTTP al servicio Laravel usando SellersService
+      const response = await this.sellersService.editarNoVisitado(idCliente, { NoVisitado: razon }).toPromise();
+
+      // Muestra una alerta con la respuesta del servidor
+      this.mostrarAlerta('Éxito', response.message);
+      this.router.navigate(['/lista']);
+
+    } catch (error) {
+      // Muestra una alerta en caso de error
+      this.mostrarAlerta('Error', 'Hubo un problema al enviar la razón de no entrega.');
+    }
+  }
   agregarVenta() {
     if (this.scannedData.Descripcion && this.nuevosKilogramos) {
       const productoSeleccionado = this.products.find(
