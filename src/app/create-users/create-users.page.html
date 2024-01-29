@@ -1,50 +1,61 @@
 <!-- create-users.page.html -->
 
 <ion-header color="danger">
-<br>
-<br>
-    <ion-title>Crear Usuario</ion-title>
+  <br>
+  <br>
+  
 </ion-header>
 
 <ion-content color="danger" [fullscreen]="true">
-
+<br><br>
+<p>Crea usuario </p><br><br>
   <!-- Formulario -->
-  <form>
+  <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
     <ion-item class="custom-item">
       <ion-label class="custom-label">Código de Agente</ion-label>
-      <ion-input class="custom-input" type="text"> </ion-input>
- 
+      <ion-input class="custom-input" formControlName="CodigoAgente" type="text"></ion-input>
+    </ion-item>
+    <ion-item class="custom-item">
 
-    
       <ion-label class="custom-label">Nombre</ion-label>
-      <ion-input class="custom-input" type="text"></ion-input>
-  
+      <ion-input class="custom-input" formControlName="Nombre" type="text"></ion-input>
+    </ion-item>
 
-   
+      <ion-item class="custom-item">
+
       <ion-label class="custom-label">Email</ion-label>
-      <ion-input class="custom-input" type="email"></ion-input>
-   
+      <ion-input class="custom-input" formControlName="Email" type="email"></ion-input>
+    </ion-item>
 
-    
-      <ion-label class="custom-label" >Número de Empleado</ion-label>
-      <ion-input class="custom-input" type="number"></ion-input>
-   
+      <ion-item class="custom-item">
+
+      <ion-label class="custom-label">Número de Empleado</ion-label>
+      <ion-input class="custom-input" formControlName="NumeroEmpleado" type="number"></ion-input>
+    </ion-item>
+
+      <ion-item class="custom-item">
 
       <ion-label>Contraseña</ion-label>
-      <ion-label  class="custom-label"position="floating"></ion-label>
-      <ion-input class="custom-input" type="password"></ion-input>
-      <br>
+      <ion-input class="custom-input" formControlName="Contrasena" type="password"></ion-input>
     </ion-item>
+
+      <br>
+  
 
     <ion-item class="custom-item" lines="none">
       <ion-label>Rol</ion-label>
-      <ion-select placeholder="Seleccionar Rol">
-        <ion-select-option value="admin">Admin</ion-select-option>
-        <ion-select-option value="vendedor">Vendedor</ion-select-option>
+      <ion-select formControlName="Rol" placeholder="Seleccionar Rol">
+        <ion-select-option value="Admin">Admin</ion-select-option>
+        <ion-select-option value="Vendedor">Vendedor</ion-select-option>
       </ion-select>
     </ion-item>
 
-      <ion-button color="warning" href="/lista">Enviar</ion-button>
+    <ion-button color="warning" type="submit">Enviar</ion-button>
   </form>
+
+
+  <ion-button expand="full" (click)="goToSellers()">
+    Volver
+  </ion-button>
   <!-- Fin del formulario -->
 </ion-content>

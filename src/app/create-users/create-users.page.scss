@@ -1,40 +1,46 @@
-/* styles.css */
+/* create-users.page.scss */
 
-ion-item.custom-item {
-    --background: var(--ion-color-danger); /* Establece el color de fondo como "danger" */
-    --border-width: 0; /* Elimina el borde del ion-item */
-}
+ion-header {
+    background-color: #dc3545; /* Color de fondo del encabezado */
+  }
   
+  ion-title {
+    color: white; /* Color del texto del título */
+  }
+  
+  ion-content {
+    background-color: #f8d7da; /* Color de fondo del contenido */
+  }
+  
+  form {
+    max-width: 400px; /* Ancho máximo del formulario */
+    margin: 0 auto; /* Centrar el formulario en la pantalla */
+  }
+  
+  ion-item {
+    margin-bottom: 15px; /* Espacio entre los elementos del formulario */
+    display: block; /* Hace que cada ion-item ocupe una línea completa */
+  }
+  
+  ion-label {
+    font-weight: bold; /* Hacer que las etiquetas sean más destacadas */
+  }
+  
+  ion-input,
+  ion-select {
+    border: 2px solid #dc3545; /* Borde de los campos de entrada y selección */
+    border-radius: 5px; /* Esquinas redondeadas */
+    padding: 8px; /* Espaciado interno */
+    width: 100%; /* Ancho completo */
+  }
+  
+  ion-button {
+    width: 100%; /* Ancho completo para el botón */
+    margin-top: 15px; /* Espacio superior del botón */
+  }
 
   
-/* styles.css */
-
-ion-button {
-    border-radius: 10px; /* Ajusta el valor según el redondeo deseado */
-    display: flex;
-    align-items: center;
-    border-radius: 8px; /* Agrega esquinas redondeadas */
-}
-  
-/* styles.css */
-/* styles.css */
-
-/* styles.css */
-
-ion-input.custom-input {
-    border: 1px solid #eae8e8; /* Agrega un borde alrededor de los inputs */
-    border-radius: 8px; /* Agrega esquinas redondeadas */
-    padding: 8px; /* Ajusta el relleno según tus preferencias */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Agrega una sombra sutil */
-    background-color: #ffffff; /* Fondo de color rojo oscuro */
-    color: white; /* Color del texto en los input */
-}
- 
-  /* styles.css */
-
-  ion-label.custom-label {
-    color: white !important; /* !important se utiliza para asegurar que este estilo tenga prioridad */
+  p{
     text-align: center;
-}
-
-  
+    font-size: 40px;
+  }

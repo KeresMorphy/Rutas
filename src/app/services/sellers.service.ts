@@ -29,4 +29,13 @@ export class SellersService {
     const url = `${this.apiUrl}/clientes/${idCliente}/editar-no-visitado`;
     return this.http.put<any>(url, data);
   }
+  getallClientesInfoByDay(ruta: string): Observable<any> {
+    const url = `${this.apiUrl}/getAllClientesInfoByDay/${ruta}`;
+    return this.http.get<any>(url);
+  }
+
+  createVentaCompleta(data: any): Observable<any> {
+    return this.http.post<any>('http://201.159.34.30:9295/bonnacarne-api/public/api/create-venta', data);
+  }
+  
 }

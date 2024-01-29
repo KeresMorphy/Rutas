@@ -9,18 +9,17 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  URL_API: string = env.API;
+  URL_API: string = env.APIBONNA;
   isLogged: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) { }
 
   login(employee_number: any, password: any) {
-    return this.http.post(this.URL_API + 'sellers/login', {
-      "employee_number": employee_number,
-      "password": password
+    return this.http.post(this.URL_API + 'login', {
+      "NumeroEmpleado": employee_number,
+      "Contrasena": password
     });
   }
-
   logout() {
     return this.http.get(this.URL_API + 'sellers/logout');
   }
@@ -28,5 +27,7 @@ export class AuthService {
   tokenRefresh() {
     return this.http.get(this.URL_API + 'sellers/refresh');
   }
-
+  createUser(userData: any): Observable<any> {
+    return this.http.post(this.URL_API + 'create-user', userData);
+  }
 }

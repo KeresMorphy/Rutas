@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { SellersService } from '../services/sellers.service';  // Asegúrate de ajustar la ruta correcta
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { SellersService } from '../services/sellers.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,13 +15,15 @@ export class SellerDetailModalComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     private alertController: AlertController,
-    private sellersService: SellersService // Inyecta el servicio SellersService
+    private sellersService: SellersService,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {}
 
   closeModal() {
-    this.modalController.dismiss(); // Cierra el modal
+    this.modalController.dismiss();
+    window.location.reload();
   }
 
   selectDay(day: string) {
@@ -31,6 +33,21 @@ export class SellerDetailModalComponent implements OnInit {
       this.selectedDays.splice(index, 1);
     } else {
       this.selectedDays.push(day);
+    }
+  }
+
+  async presentLoader() {
+    const loader = await this.loadingController.create({
+      message: 'Cargando...',
+      spinner: 'crescent',
+    });
+    await loader.present();
+    return loader;
+  }
+
+  async dismissLoader(loader: HTMLIonLoadingElement) {
+    if (loader) {
+      await loader.dismiss();
     }
   }
 
@@ -49,8 +66,9 @@ export class SellerDetailModalComponent implements OnInit {
           },
           {
             text: 'Aceptar',
-            handler: () => {
-              this.createClienteInfo(); // Llama a la función para enviar los datos al backend
+            handler: async () => {
+              const loader = await this.presentLoader();
+              this.createClienteInfo(loader);
             },
           },
         ],
@@ -66,19 +84,19 @@ export class SellerDetailModalComponent implements OnInit {
     return this.selectedDays.includes(day);
   }
 
-  createClienteInfo() {
+  createClienteInfo(loader: HTMLIonLoadingElement) {
     const postData = {
       CodCliente: this.client.CodCliente,
-    CodPostal: this.client.CodPostal,
-    Colonia: this.client.Colonia,
-    Domicilio: this.client.Domicilio,
-    Email: this.client.Email,
-    Estado: this.client.Estado,
-    NoExterior: this.client.NoExterior,
-    Poblacion: this.client.Poblacion,
-    RazonSocial: this.client.RazonSocial,
-    Ruta: this.client.Ruta,
-    Telefono: this.client.Telefono,
+      CodPostal: this.client.CodPostal,
+      Colonia: this.client.Colonia,
+      Domicilio: this.client.Domicilio,
+      Email: this.client.Email,
+      Estado: this.client.Estado,
+      NoExterior: this.client.NoExterior,
+      Poblacion: this.client.Poblacion,
+      RazonSocial: this.client.RazonSocial,
+      Ruta: this.client.Ruta,
+      Telefono: this.client.Telefono,
       FechaAsignacion: new Date().toISOString().split('T')[0],
       Lunes: this.isSelected('Lunes'),
       Martes: this.isSelected('Martes'),
@@ -86,16 +104,18 @@ export class SellerDetailModalComponent implements OnInit {
       Jueves: this.isSelected('Jueves'),
       Viernes: this.isSelected('Viernes'),
       Sabado: this.isSelected('Sábado'),
-      Visitado: false, // No estoy seguro de dónde obtener este valor
+      Visitado: false,
     };
 
-    // Utiliza el servicio para realizar la solicitud POST al backend Laravel
     this.sellersService.createClienteInfo(postData).subscribe(
       (response) => {
         console.log('Cliente creado exitosamente', response);
+        this.dismissLoader(loader);
+        this.closeModal();
       },
       (error) => {
         console.error('Error al crear cliente', error);
+        this.dismissLoader(loader);
       }
     );
   }

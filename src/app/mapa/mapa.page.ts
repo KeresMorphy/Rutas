@@ -29,10 +29,15 @@ export class MapaPage implements AfterViewInit {
   cliente: any; // Asegúrate de que la variable cliente esté declarada
   product: any;
   id: any;
+  private numeroPedido: number = 0;
+
   products: any[] = []; // Asegúrate de inicializar esta variable con tus productos
   filteredProducts: any[] = [];
   scannedData: any = {};
   nuevosKilogramos: number | undefined;
+  empleado: any;
+  userInfo: any;
+  CodCliente: any;
   constructor(private route: ActivatedRoute,
     private loadingController: LoadingController, private productService: ProductService,
     private sellersService: SellersService,
@@ -48,7 +53,15 @@ export class MapaPage implements AfterViewInit {
   }
 
   ngOnInit() {
+    this.userInfo = localStorage.getItem('userData');
+    this.userInfo = JSON.parse(this.userInfo);
+    this.empleado = this.userInfo.id_cedis;
+
+    console.log(this.empleado);
     this.cliente = history.state.cliente;
+    console.log(this.cliente);
+    this.CodCliente = history.state.cliente.CodCliente;
+    console.log(this.CodCliente);
 
     this.actualizarMapaConCoordenadas();
     // Muestra el loader antes de llamar al servicio de productos
@@ -218,7 +231,7 @@ export class MapaPage implements AfterViewInit {
         const precioTotal = productoSeleccionado.Publico * this.nuevosKilogramos;
 
         this.ventas.push({
-          id: productoSeleccionado.Descripcion,
+          id: productoSeleccionado.CodProd,
           kg: this.nuevosKilogramos,
           precio: productoSeleccionado.Publico,
           precioTotal: precioTotal
@@ -240,6 +253,55 @@ export class MapaPage implements AfterViewInit {
       // Muestra una alerta en lugar de imprimir en la consola
       this.mostrarAlerta('Error', 'Por favor, selecciona un producto y proporciona la cantidad de kilogramos.');
     }
+  }
+  realizarVenta() {
+    if (this.ventas.length > 0) {
+      // Incrementa el contador de pedido para el siguiente pedido
+      
+  
+      // Crea el objeto de datos para la solicitud
+      const data = {
+        Fecha: new Date().toISOString(),
+        CodCte: this.CodCliente,
+        CodAgen: this.empleado, // Ajusta según tus necesidades
+        TotalPzs: this.getTotalKilos(),
+        Importe: this.totalPrecioTotal,
+        FechaEntrega: new Date().toISOString(),
+        Referencia: 'Referencia', // Ajusta según tus necesidades
+        ParaCliente: true, // Ajusta según tus necesidades
+        productos: this.ventas.map((venta, index) => ({
+          NoRenglon: index + 1, // +1 porque los índices comienzan desde 0
+          CodProd: venta.id,
+          Piezas: venta.kg,
+        })),
+      };
+      console.log('Datos a enviar en el POST:', data);
+      // Realiza la solicitud HTTP al servicio Laravel usando ProductService
+      this.sellersService.createVentaCompleta(data).subscribe(
+        (response) => {
+          // Muestra una alerta con la respuesta del servidor
+          this.mostrarAlerta('Éxito', response.messages);
+  
+          // Reinicia el arreglo de ventas y actualiza el totalPrecioTotal
+          this.ventas = [];
+          this.actualizarTotalPrecioTotal();
+  
+          // Puedes redirigir a otra página o realizar otras acciones según tus necesidades
+          this.router.navigate(['/lista']);
+        },
+        (error) => {
+          // Muestra una alerta en caso de error
+          this.mostrarAlerta('Error', 'Hubo un problema al realizar la venta.');
+        }
+      );
+    } else {
+      // Muestra una alerta si no hay ventas para realizar
+      this.mostrarAlerta('Error', 'No hay ventas para realizar.');
+    }
+  }
+  private getTotalKilos(): number {
+    // Calcula el total de kilogramos sumando todas las ventas
+    return this.ventas.reduce((total, venta) => total + venta.kg, 0);
   }
 
   private actualizarTotalPrecioTotal() {

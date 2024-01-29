@@ -92,6 +92,17 @@ export class SellersPage implements OnInit {
   ngOnInit() {
     this.loadSellers();
   }
+
+  goToCreateUser() {
+    
+    this.router.navigate(['/create-users']);
+  }
+  goToCreateCliente() {
+    this.router.navigate(['/alta-cliente']);
+  }
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
   
   // Aquí puedes agregar las funciones adicionales que necesitas
 }

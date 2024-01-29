@@ -30,8 +30,9 @@ export class ListaPage implements OnInit {
   form: FormGroup | undefined;
   clientes: Array<any> = [];
 product: any;
-  products: any[] = []; // Asegúrate de inicializar esta variable con tus productos
+  products: any[] = [];
   filteredProducts: any[] = [];
+  ruta!: string;
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
@@ -46,7 +47,10 @@ product: any;
     this.userInfo = JSON.parse(this.userInfo);
     console.log(this.userInfo);
     this.name2 = this.userInfo.name;
+    this.ruta = this.userInfo.id_cedis;
+
     console.log(this.name2);
+    console.log(this.ruta);
 
     this.getLocation();
   }
@@ -125,19 +129,16 @@ product: any;
   
 
   obtenerClientes() {
-    const ruta = '322.0'; // Reemplaza esto con la ruta que necesitas obtener
-    this.sellersService.getClientesInfoByDay(ruta).subscribe(
+   
+    this.sellersService.getClientesInfoByDay(this.ruta + '.0').subscribe(
       (data) => {
-        // La respuesta de la API se encuentra en 'data'
         console.log(data);
-        // Actualiza tu arreglo de clientes con los datos obtenidos
         this.clientes = data.clientes || [];
       },
       (error) => {
         console.error('Error al obtener datos de la API', error);
-        // Puedes manejar el error según tus necesidades
       }
     );
   }
-  // Aquí puedes agregar las funciones adicionales que necesitas
+
 }

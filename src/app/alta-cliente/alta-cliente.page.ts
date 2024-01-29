@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-alta-cliente',
@@ -25,7 +26,8 @@ export class AltaClientePage {
     EnviadoTaz: '',
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private router: Router ) {}
 
   submitForm() {
     // Realiza la solicitud HTTP aquí
@@ -37,5 +39,9 @@ export class AltaClientePage {
         console.error('Error al enviar la solicitud:', error);
         // Puedes manejar errores aquí
       });
+  }
+  goToSellers() {
+    // Redirigir a la ruta "/sellers"
+    this.router.navigate(['/sellers']);
   }
 }
