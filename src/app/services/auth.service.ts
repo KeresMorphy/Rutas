@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  URL_API: string = env.APIBONNA;
+  URL_API: string = env.API;
   isLogged: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) { }

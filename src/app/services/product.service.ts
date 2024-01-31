@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-  URI: string = env.APIBONNA;
+  URI: string = env.API;
 
   constructor(private http: HttpClient) { }
 
