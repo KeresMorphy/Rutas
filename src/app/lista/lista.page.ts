@@ -33,6 +33,7 @@ product: any;
   products: any[] = [];
   filteredProducts: any[] = [];
   ruta!: string;
+  hayClientes: boolean = false;
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
@@ -57,6 +58,29 @@ product: any;
 
   ionViewDidEnter() {
     this.employee_number = localStorage.getItem('employee_number') || undefined;
+    this.obtenerClientes(); // Llamada al servicio de clientes
+  
+    // Muestra el loader antes de llamar al servicio de productos
+    this.presentLoader();
+  
+    // Llama al servicio de productos y muestra el loader
+    this.productService.getAllProducts().subscribe(
+      (data) => {
+        // La respuesta de la API de productos se encuentra en 'data'
+       
+        // Actualiza tu arreglo de productos con los datos obtenidos
+        this.products = data || [];
+        console.log(this.products);
+        // Cierra el loader después de obtener los datos con éxito
+        this.dismissLoader();
+      },
+      (error) => {
+        console.error('Error al obtener datos de la API de productos', error);
+        // Puedes manejar el error según tus necesidades
+        // Cierra el loader en caso de error
+        this.dismissLoader();
+      }
+    );
   }
 
   getLocation(): void {
@@ -89,29 +113,7 @@ product: any;
   }
 
   ngOnInit() {
-    this.obtenerClientes(); // Llamada al servicio de clientes
   
-    // Muestra el loader antes de llamar al servicio de productos
-    this.presentLoader();
-  
-    // Llama al servicio de productos y muestra el loader
-    this.productService.getAllProducts().subscribe(
-      (data) => {
-        // La respuesta de la API de productos se encuentra en 'data'
-       
-        // Actualiza tu arreglo de productos con los datos obtenidos
-        this.products = data || [];
-        console.log(this.products);
-        // Cierra el loader después de obtener los datos con éxito
-        this.dismissLoader();
-      },
-      (error) => {
-        console.error('Error al obtener datos de la API de productos', error);
-        // Puedes manejar el error según tus necesidades
-        // Cierra el loader en caso de error
-        this.dismissLoader();
-      }
-    );
   }
   
   private async presentLoader(): Promise<void> {
@@ -129,16 +131,16 @@ product: any;
   
 
   obtenerClientes() {
-   
     this.sellersService.getClientesInfoByDay(this.ruta + '.0').subscribe(
       (data) => {
         console.log(data);
         this.clientes = data.clientes || [];
+        this.hayClientes = this.clientes.length > 0;
       },
       (error) => {
         console.error('Error al obtener datos de la API', error);
+        this.hayClientes = false;
       }
     );
   }
-
 }

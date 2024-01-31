@@ -38,6 +38,7 @@ export class MapaPage implements AfterViewInit {
   empleado: any;
   userInfo: any;
   CodCliente: any;
+  idCliente: any;
   constructor(private route: ActivatedRoute,
     private loadingController: LoadingController, private productService: ProductService,
     private sellersService: SellersService,
@@ -60,6 +61,9 @@ export class MapaPage implements AfterViewInit {
     console.log(this.empleado);
     this.cliente = history.state.cliente;
     console.log(this.cliente);
+    this.idCliente = history.state.cliente.id;
+    console.log(this.idCliente);
+
     this.CodCliente = history.state.cliente.CodCliente;
     console.log(this.CodCliente);
 
@@ -285,7 +289,16 @@ export class MapaPage implements AfterViewInit {
           // Reinicia el arreglo de ventas y actualiza el totalPrecioTotal
           this.ventas = [];
           this.actualizarTotalPrecioTotal();
-  
+          this.sellersService.editarVisitado(this.idCliente).subscribe(
+            (editResponse) => {
+              // Maneja la respuesta de editarVisitado si es necesario
+              console.log('Edición de visitado exitosa:', editResponse);
+            },
+            (editError) => {
+              // Maneja los errores de editarVisitado si es necesario
+              console.error('Error al editar visitado:', editError);
+            }
+          );
           // Puedes redirigir a otra página o realizar otras acciones según tus necesidades
           this.router.navigate(['/lista']);
         },

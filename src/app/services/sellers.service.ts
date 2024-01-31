@@ -37,5 +37,9 @@ export class SellersService {
   createVentaCompleta(data: any): Observable<any> {
     return this.http.post<any>('http://201.159.34.30:9295/bonnacarne-api/public/api/create-venta', data);
   }
-  
+  editarVisitado(idCliente: string): Observable<any> {
+    const url = `${this.apiUrl}/clientes/${idCliente}/editar-visitado`;
+    const data = {};
+    return this.http.put<any>(url, data);
+}
 }
